@@ -1,9 +1,15 @@
 package baskakov.dev.springboormvc.model;
 
-public class PetDto {
+public class PetDTO {
     private Long id;
     private String name;
     private Long userId;
+
+    public PetDTO(Long id, String name, Long userId) {
+        this.id = id;
+        this.name = name;
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;
