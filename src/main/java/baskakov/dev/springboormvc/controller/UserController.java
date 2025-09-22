@@ -2,6 +2,7 @@ package baskakov.dev.springboormvc.controller;
 
 import baskakov.dev.springboormvc.model.UserDTO;
 import baskakov.dev.springboormvc.service.UserService;
+import jakarta.validation.Valid;
 import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,9 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
+    public ResponseEntity<UserDTO> createUser(
+            @RequestBody @Valid UserDTO user
+    ) {
         UserDTO createdUser = userService.createUser(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -53,7 +56,7 @@ public class UserController {
     @PutMapping("/users/{id}")
     public ResponseEntity<UserDTO> updateUserById(
             @PathVariable("id") Long id,
-            @RequestBody UserDTO user) {
+            @RequestBody @Valid UserDTO user) {
         userService.updateUserById(id, user);
         return ResponseEntity
                 .status(HttpStatus.OK)
