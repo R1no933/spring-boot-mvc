@@ -2,6 +2,7 @@ package baskakov.dev.springboormvc.controller;
 
 import baskakov.dev.springboormvc.model.PetDTO;
 import baskakov.dev.springboormvc.service.PetService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class PetController {
 
     @PostMapping("/users/pets")
     public ResponseEntity<PetDTO> createPet(
-            @RequestBody PetDTO pet) {
+            @RequestBody @Valid PetDTO pet) {
         PetDTO createdPet = petService.createPet(pet);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -54,7 +55,7 @@ public class PetController {
     @PutMapping("/users/pets/{id}")
     public ResponseEntity<PetDTO> updatePetById(
             @PathVariable("id") Long id,
-            @RequestBody PetDTO pet
+            @RequestBody @Valid PetDTO pet
     ) {
         petService.updateById(id, pet);
         return ResponseEntity
