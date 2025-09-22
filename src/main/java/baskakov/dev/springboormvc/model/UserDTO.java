@@ -1,5 +1,9 @@
 package baskakov.dev.springboormvc.model;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDTO {
@@ -7,7 +11,16 @@ public class UserDTO {
     private String name;
     private String email;
     private Integer age;
-    private List<PetDto> pets;
+    @Null
+    private List<PetDTO> pets;
+
+    public UserDTO(Long id, String name, String email, Integer age, List<PetDTO> pets) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.pets = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
@@ -41,11 +54,11 @@ public class UserDTO {
         this.age = age;
     }
 
-    public List<PetDto> getPets() {
+    public List<PetDTO> getPets() {
         return pets;
     }
 
-    public void setPets(List<PetDto> pets) {
+    public void setPets(List<PetDTO> pets) {
         this.pets = pets;
     }
 }
