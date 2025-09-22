@@ -22,7 +22,6 @@ public class UserDTO {
     @Max(100)
     private Integer age;
 
-    @Null
     private List<PetDTO> pets;
 
     public UserDTO(Long id, String name, String email, Integer age, List<PetDTO> pets) {

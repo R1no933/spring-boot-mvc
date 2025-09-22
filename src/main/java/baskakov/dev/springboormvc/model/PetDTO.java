@@ -12,7 +12,6 @@ public class PetDTO {
     @Size(min = 3, max = 30)
     private String name;
 
-    @Null
     private Long userId;
 
     public PetDTO(Long id, String name, Long userId) {
