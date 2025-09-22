@@ -1,16 +1,27 @@
 package baskakov.dev.springboormvc.model;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDTO {
+    @Null
     private Long id;
+
+    @NotBlank
+    @Size(min = 1, max = 30)
     private String name;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotNull
+    @Min(1)
+    @Max(100)
     private Integer age;
+
     @Null
     private List<PetDTO> pets;
 
