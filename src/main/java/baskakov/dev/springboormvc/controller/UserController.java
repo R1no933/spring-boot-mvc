@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -17,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<UserDTO> createUser(
             @RequestBody @Valid UserDTO user
     ) {
@@ -27,14 +28,14 @@ public class UserController {
                 .body(createdUser);
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.getAllUsers());
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(
             @PathVariable("id") Long id
     ) {
@@ -43,7 +44,7 @@ public class UserController {
                 .body(userService.getUserById(id));
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserById(
             @PathVariable("id") Long id) {
         userService.deleteUserById(id);
@@ -52,7 +53,7 @@ public class UserController {
                 .build();
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUserById(
             @PathVariable("id") Long id,
             @RequestBody @Valid UserDTO user) {

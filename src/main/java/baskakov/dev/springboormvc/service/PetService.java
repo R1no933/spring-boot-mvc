@@ -8,18 +8,24 @@ import java.util.*;
 
 @Service
 public class PetService {
-    private Long petId;
+    private static Long petId = 0L;
     private final Map<Long, PetDTO> pets;
     private final UserService userService;
 
     public PetService(UserService userService) {
         this.pets = new HashMap<>();
-        this.petId = 0L;
         this.userService = userService;
     }
 
 
     public PetDTO createPet(PetDTO pet) {
+        Long userId = pet.getUserId();
+        UserDTO currentUser = userService.getUserById(userId);
+
+        if (!currentUser.getId().equals(pet.getUserId())) {
+            throw new NoSuchElementException("User with id " + userId + " does not exist");
+        }
+
         var newId = ++ petId;
         var newPet = new PetDTO(
                 newId,
@@ -28,12 +34,6 @@ public class PetService {
         );
 
         pets.put(newId, newPet);
-        Long userId = newPet.getUserId();
-        UserDTO currentUser = userService.getUserById(userId);
-
-        if (!currentUser.getId().equals(pet.getUserId())) {
-            throw new NoSuchElementException("User with id " + userId + " does not exist");
-        }
         userService.addPetToUser(userId, newPet);
         return newPet;
     }

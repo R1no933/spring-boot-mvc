@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/users/pets")
 public class PetController {
     private final PetService petService;
 
@@ -17,7 +18,7 @@ public class PetController {
         this.petService = petService;
     }
 
-    @PostMapping("/users/pets")
+    @PostMapping
     public ResponseEntity<PetDTO> createPet(
             @RequestBody @Valid PetDTO pet) {
         PetDTO createdPet = petService.createPet(pet);
@@ -26,14 +27,14 @@ public class PetController {
                 .body(createdPet);
     }
 
-    @GetMapping("/users/pets")
+    @GetMapping
     public ResponseEntity<List<PetDTO>> getAllPets() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(petService.getAllPets());
     }
 
-    @GetMapping("/users/pets/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PetDTO> getPetById(
             @PathVariable("id") Long id
     ) {
@@ -42,7 +43,7 @@ public class PetController {
                 .body(petService.getPetById(id));
     }
 
-    @DeleteMapping("/users/pets/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePetById(
             @PathVariable("id") Long id
     ) {
@@ -52,7 +53,7 @@ public class PetController {
                 .build();
     }
 
-    @PutMapping("/users/pets/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<PetDTO> updatePetById(
             @PathVariable("id") Long id,
             @RequestBody @Valid PetDTO pet
